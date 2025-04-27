@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrar Mascota</title>
+</head>
+<body>
+
+<h1>Registrar Nueva Mascota</h1>
+
+<form th:action="@{/mascotas}" th:object="${mascota}" method="post">
+    <label>Nombre:</label><br>
+    <input type="text" th:field="*{nombre}" required /><br><br>
+
+    <label>Fecha de Nacimiento:</label><br>
+    <input type="date" th:field="*{fechaNac}" /><br><br>
+
+    <label>Raza:</label><br>
+    <input type="text" th:field="*{raza}" /><br><br>
+
+    <label>Peso:</label><br>
+    <input type="number" th:field="*{peso}" step="0.01" /><br><br>
+
+    <label>Tiene Chip:</label><br>
+    <input type="checkbox" th:field="*{tieneChip}" /><br><br>
+
+    <label>URL Foto:</label><br>
+    <input type="text" th:field="*{urlFoto}" /><br><br>
+	
+	<label>Propietario:</label><br>
+    <select th:field="*{propietario.id}">
+        <option th:value="__${null}__">-- Sin propietario --</option>
+        <option th:each="propietario : ${propietarios}" 
+                th:value="${propietario.id}" 
+                th:text="${propietario.nombre}">
+        </option>
+    </select><br><br>
+
+    <button type="submit">Guardar Mascota</button>
+</form><br><br>
+
+<a th:href="@{/mascotas}">Volver al listado</a>
+
+</body>
+</html>

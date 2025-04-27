@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mascotas</title>
+</head>
+<body>
+
+<h1>Todas las mascotas</h1>
+
+<a th:href="@{/propietarios}">Ver propietarios</a><br><br>
+
+<a th:href="@{/mascotas/nuevo}">Registrar Nueva Mascota</a><br><br>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Raza</th>
+            <th>Fecha Nacimiento</th>
+            <th>Propietario</th>
+        </tr>
+    </thead>
+    <tbody>
+		<tr th:each="mascota : ${mascotas.content}">
+		    <td th:text="${mascota.nombre}">Nombre</td>
+		    <td th:text="${mascota.raza}">Raza</td>
+		    <td th:text="${mascota.fechaNac}">Fecha Nacimiento</td>
+		    <td th:text="${mascota.propietario?.nombre}">Propietario</td>
+		</tr>
+    </tbody>
+</table><br><br>
+
+<div>
+    <a th:if="${currentPage > 0}" th:href="@{/mascotas(page=${currentPage - 1}, size=5)}">Anterior</a>
+    <span>Página [[${currentPage}]]</span>
+    <a th:if="${mascotas.hasNext()}" th:href="@{/mascotas(page=${currentPage + 1}, size=5)}">Siguiente</a>
+</div>
+
+</body>
+</html>
